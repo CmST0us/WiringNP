@@ -18,33 +18,14 @@ check_make_ok() {
 if [ x$1 = "xclean" ]; then
   cd wiringPi
   echo -n "wiringPi:   "	; make clean
-  cd ../devLib
-  echo -n "DevLib:     "	; make clean
-  cd ../gpio
-  echo -n "gpio:       "	; make clean
-  cd ../examples
-  echo -n "Examples:   "	; make clean
-  cd Gertboard
-  echo -n "Gertboard:  "	; make clean
-  cd ../PiFace
-  echo -n "PiFace:     "	; make clean
-  cd ../q2w
-  echo -n "Quick2Wire: "	; make clean
-  cd ../PiGlow
-  echo -n "PiGlow:     "	; make clean
   exit
 fi
 
 if [ x$1 = "xuninstall" ]; then
   cd wiringPi
   echo -n "wiringPi: " ; ${PFX}make uninstall
-  cd ../devLib
-  echo -n "DevLib:   " ; ${PFX}make uninstall
-  cd ../gpio
-  echo -n "gpio:     " ; ${PFX}make uninstall
   exit
 fi
-
 
   echo "wiringPi Build script"
   echo "====================="
@@ -55,44 +36,15 @@ fi
   cd wiringPi
   ${PFX}make uninstall
   if [ x$1 = "xstatic" ]; then
-    make static
+    make $CROSS_COMPILE static
     check_make_ok
     ${PFX}make install-static
   else
-    make
+    make $CROSS_COMPILE
     check_make_ok
     ${PFX}make install
   fi
   check_make_ok
-
-  echo
-  echo "WiringPi Devices Library"
-  cd ../devLib
-  ${PFX}make uninstall
-  if [ x$1 = "xstatic" ]; then
-    make static
-    check_make_ok
-    ${PFX}make install-static
-  else
-    make
-    check_make_ok
-    ${PFX}make install
-  fi
-  check_make_ok
-
-  echo
-  echo "GPIO Utility"
-  cd ../gpio
-  make
-  check_make_ok
-  ${PFX}make install
-  check_make_ok
-
-# echo
-# echo "Examples"
-# cd ../examples
-# make
-# cd ..
 
 echo
 echo All Done.

@@ -25,15 +25,15 @@ DYN_VERS_MAJ=2
 DYN_VERS_MIN=0
 
 VERSION=$(DYN_VERS_MAJ).$(DYN_VERS_MIN)
-DESTDIR=/usr
-PREFIX=/local
+DESTDIR=../../build
+PREFIX=
 
 STATIC=libwiringPi.a
 DYNAMIC=libwiringPi.so.$(VERSION)
 
 #DEBUG	= -g -O0
 DEBUG	= -O2
-CC	= gcc
+CC	= $(CROSS_COMPILE)gcc
 INCLUDE	= -I.
 DEFS	= -D_GNU_SOURCE
 CFLAGS	= $(DEBUG) $(DEFS) -Wformat=2 -Wall -Winline $(INCLUDE) -pipe -fPIC -Wpointer-to-int-cast
