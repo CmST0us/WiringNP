@@ -88,7 +88,7 @@ static PI_THREAD (softServoThread)
   struct timespec tNs ;
 
   tTotal.tv_sec  =    0 ;
-  tTotal.tv_usec = 8000 ;
+  tTotal.tv_usec = 20000;
 
   piHiPri (50) ;
 
@@ -139,7 +139,7 @@ static PI_THREAD (softServoThread)
       digitalWrite (pin, LOW) ;
     }
 
-// Wait until the end of an 8mS time-slot
+// Wait until the end of an 20mS time-slot
 
     gettimeofday (&tNow, NULL) ;
     timersub (&tNow, &tStart, &tPeriod) ;
@@ -165,14 +165,16 @@ void softServoWrite (int servoPin, int value)
 
   servoPin &= 63 ;
 
-  /**/ if (value < -250)
+/*
+   if (value < -250)
     value = -250 ;
   else if (value > 1250)
     value = 1250 ;
+*/
 
   for (servo = 0 ; servo < MAX_SERVOS ; ++servo)
     if (pinMap [servo] == servoPin)
-      pulseWidth [servo] = value + 1000 ; // uS
+      pulseWidth [servo] = value; // uS
 }
 
 
